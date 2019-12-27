@@ -1,0 +1,25 @@
+"/application/init":
+  method: GET
+  status: 200
+  content-type: application/json
+  content: >
+    {
+      "user": {
+        "user_id": 178930001
+        "user_name": "YAMADA TAROU"
+      }
+    }
+  filtering: false
+"/users/:user_id":
+  - method: GET
+    status: 200
+    content-type: application/json
+    filtering: true
+    content-file: user-get.json
+  - method: GET
+    status: 404
+    content-type: application/json
+    condition: "params.user_id == '178930774'"
+"/application/config":
+  method: GET
+  status: 200

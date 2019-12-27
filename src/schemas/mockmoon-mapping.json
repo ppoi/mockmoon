@@ -1,0 +1,33 @@
+{
+  "$id": "http://tsukuba-bunko.org/schemas/mockmoon-mapping.json",
+
+  "type": "object",
+  "additionalProperties": {
+    "oneOf": [
+      { "$ref": "#responseDef" },
+      { "type": "array", "items": { "$ref": "#responseDef" }, "minItems": 1 }
+    ]
+  },
+
+  "definitions": {
+    "ResponseDef": {
+      "type": "object",
+      "$id": "responseDef",
+      "properties": {
+        "method": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+          ]
+        },
+        "condition": { "type": "string" },
+        "status": { "type": "integer" },
+        "content-type": { "type": "string" },
+        "encoding": { "type": "string" },
+        "content": { "type": "string" },
+        "content-file": { "type": "string" },
+        "filtering": { "type": "boolean" }
+      }
+    }
+  }
+}
