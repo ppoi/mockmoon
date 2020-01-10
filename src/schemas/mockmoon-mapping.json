@@ -23,10 +23,14 @@
         "condition": { "type": "string" },
         "status": { "type": "integer" },
         "content-type": { "type": "string" },
-        "encoding": { "type": "string" },
         "content": { "type": "string" },
         "content-file": { "type": "string" },
-        "filtering": { "type": "boolean" }
+        "filtering": { 
+          "oneOf": [
+            { "type": "boolean" },
+            { "type": "string" }
+          ]
+        }
       }
     }
   }

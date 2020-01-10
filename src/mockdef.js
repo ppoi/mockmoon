@@ -1,6 +1,7 @@
 'use strict';
 
 import { match } from 'path-to-regexp';
+import iconv from 'iconv-lite';
 
 /**
  * Definition of Mock Responses
@@ -17,7 +18,8 @@ class MockDef {
     if(!result) {
       return false;
     } else {
-    }  
+      return true;
+    }
   }
 }
 
@@ -27,7 +29,9 @@ class MockDef {
  */
 class MockResponseDef {
   constructor() {
+    this.method = null;
     this.status = 200;
+    this.contentType = "application/octet-stream"
     this._content = DEFAULT_TEMPLATE;
     this._condition = DEFAULT_EVALUATOR;
   }
@@ -61,13 +65,32 @@ class MockResponseDef {
   }
 }
 
+
+class MockResponseContent {
+  constructor(source, filtering=false) {
+    this.source = (typeof source == 'function') ? source : text(source);
+    this.filtering = filtering;
+  }
+
+  send(resp) {
+    if(this.filtering) {
+      var encoding = (typeof this.filtering == 'string') ? this.filtering : null;
+    } else {
+    }
+  }
+}
+
+
+
 const DEFAULT_TEMPLATE = ()=>{};
 const DEFAULT_EVALUATOR = ()=>true;
 
-const file = (source)=>()=>readFileSync(source).toString();
+const file = (source)=>(alt)=>(alt || readFileSync)(source);
+const text = (source)=>(alt)=>(alt ? alt(source) : source);
 const evaluator = (condition)=>new Function('path', 'params', 'settigs', 'return (' + condition + ');');
 const template = (template)=>new Function('path', 'params', 'settigs', 'return (`' + template + '`);');
 
+const sendText = (resp, text, encoding)=>resp.send(iconv.encode(text, encoding));
 
 
 import { readFileSync } from 'fs';
@@ -92,7 +115,5 @@ var loadMockDef = (filePath)=>{
 export {
   MockDef,
   MockResponseDef,
-  file,
-  evaluator,
-  template
+  file
 };
