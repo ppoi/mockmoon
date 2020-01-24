@@ -22,16 +22,38 @@
         },
         "condition": { "type": "string" },
         "status": { "type": "integer" },
+        "headers": { "type": "object" },
+        "cookies": { "type": "array", "items": { "$ref": "#cookieDef" } },
         "content-type": { "type": "string" },
         "content": { "type": "string" },
         "content-file": { "type": "string" },
-        "filtering": { 
+        "filtering": {
           "oneOf": [
             { "type": "boolean" },
             { "type": "string" }
           ]
         }
       }
+    },
+
+    "CookieDef": {
+      "type": "object",
+      "$id": "cookieDef",
+      "properties": {
+        "name": { "type": "string" },
+        "value": { "type": "string" },
+        "options": {
+          "type": "object",
+          "properties": {
+            "domain": { "type": "string" },
+            "expires": { "type": "string" },
+            "path": { "type": "string" },
+            "httpOnly": { "type": "boolean" },
+            "secure": { "type": "boolean" }
+          }
+        }
+      },
+      "required": ["name", "value"]
     }
   }
 }
