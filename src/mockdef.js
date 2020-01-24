@@ -43,7 +43,7 @@ class MockResponseDef {
   set content(source) {
     var content;
     if(typeof source == "function") {
-      content = (path, params, settings)=>(template(source()))(path, params, settings);
+      content = (path, headers, cookies, params, query, data)=>(template(source()))(path, headers, cookies, params, query, data);
     } else {
       content = template(source);
     }
@@ -87,8 +87,8 @@ const DEFAULT_EVALUATOR = ()=>true;
 
 const file = (source)=>(alt)=>(alt || readFileSync)(source);
 const text = (source)=>(alt)=>(alt ? alt(source) : source);
-const evaluator = (condition)=>new Function('path', 'params', 'settigs', 'return (' + condition + ');');
-const template = (template)=>new Function('path', 'params', 'settigs', 'return (`' + template + '`);');
+const evaluator = (condition)=>new Function('path', 'headers', 'cookies', 'params', 'query', 'data', 'return (' + condition + ');');
+const template = (template)=>new Function('path', 'headers', 'cookies', 'params', 'query', 'data', 'return (`' + template + '`);');
 
 const sendText = (resp, text, encoding)=>resp.send(iconv.encode(text, encoding));
 

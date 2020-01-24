@@ -1,0 +1,42 @@
+"/users/:user_id":
+  - condition: "!cookies.some(cookie=>(cookie.name == 'auth-token'))"
+    status: 401
+    content-type: "application/json"
+    contents: "{\"result\":\"error\", \"message\":\"unauthorized\"}"
+  - method: GET
+    condition: "1 <= params.user_id && 5 >= params.user_id"
+    status: 200
+    content-type: "application/json"
+    content-file: "files/user.json"
+    filter: true
+  - method: GET
+    condition: "1 > params.user_id && 5 < params.user_id"
+    status: 404
+    content-type: "application/json"
+    contents: "{\"result\":\"error\", \"message\":\"not found\"}"
+  - method: POST
+    status: 200
+    content-type: "application/json"
+    contents: "{\"result\":\"success\", \"data\": {\"user_id\":\"${ params.user_id }\"}"
+    filter: true
+"/memos/:user_id/:memo_id":
+  - condition: "!cookies.some(cookie=>(cookie.name == 'auth-token'))"
+    status: 401
+    content-type: "application/json"
+    contents: "{\"result\":\"error\", \"message\":\"unauthorized\"}"
+  - method: GET
+    status: 200
+    content-type: "application/json"
+    content-file: "memo.json"
+"/auth":
+  - method: GET
+    condition: "query['user-id'] != 'unknown'"
+    status: 302
+    cookies:
+      - path: /*
+        name: auth-token
+        value: dummytoken
+    headers:
+      Location: ${ query.redirect || "/" }
+  - status: 401
+    contents: "{\"result\":\"error\", \"message\":\"login failed\"}"

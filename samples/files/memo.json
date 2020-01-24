@@ -1,0 +1,6 @@
+{
+  "id": "${ params.memo_id }",
+  "user_id": "${ params.user_id }",
+  "title": "メモ(${ params.memo_id })",
+  "content": "ユーザ(${ params.user_id })さん、これが本文なんですよ。"
+}

@@ -1,0 +1,4 @@
+{
+  "id": "${ params.user_id }",
+  "name": "テストユーザ(${ params.user_id })"
+}
