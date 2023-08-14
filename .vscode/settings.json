@@ -1,0 +1,17 @@
+{
+    "[html]": {
+        "editor.suggest.insertMode": "replace",
+        "editor.useTabStops": false,
+        "editor.tabSize": 2
+    },
+    "[svelte]": {
+        "editor.suggest.insertMode": "replace",
+        "editor.useTabStops": false,
+        "editor.tabSize": 2
+    },
+    "[javascript]": {
+        "editor.suggest.insertMode": "replace",
+        "editor.useTabStops": false,
+        "editor.tabSize": 2
+    }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "mockmoon",
+  "version": "0.0.1",
+  "description": "Mock API Server for SPA development",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.4.5",
+    "esm": "^3.2.25",
+    "vite": "^4.4.9"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21",
+    "svelte": "^4.2.0"
+  }
+}
